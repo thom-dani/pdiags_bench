@@ -122,10 +122,10 @@ def main(subset=False):
         if soft == "CubicalRipser_2dim":
             # build CubicalRipser
             subprocess.run(["make"], cwd=soft_src, check=True)
-        elif soft == "CubicalRipser_2dim":
+        elif soft == "CubicalRipser_3dim":
             #build CubicalRipser 3D
             create_dir(builddir)
-            subprocess.check_call(["cmake", ".."], cwd=builddir)
+            subprocess.check_call(["cmake", f"../../{soft_src}"], cwd=builddir)
             subprocess.check_call(["make"], cwd=builddir)
 
         elif soft == "perseus":
@@ -230,16 +230,16 @@ def main(subset=False):
                 pv_ver,
                 ["-DPARAVIEW_USE_QT=OFF", "-DVTK_Group_ENABLE_Rendering=NO"],
             )
-            # apply DiscreteMorseSandwich patch
-            subprocess.run(
-                [
-                    "git",
-                    "apply",
-                    "../../patches/DiscreteMorseSandwich_filters.patch",
-                ],
-                cwd=soft_src,
-                check=True,
-            )
+            ## apply DiscreteMorseSandwich patch
+            #subprocess.run(
+            #    [
+            #        "git",
+            #        "apply",
+            #        "../../patches/DiscreteMorseSandwich_filters.patch",
+            #    ],
+            #    cwd=soft_src,
+            #    check=True,
+            #)
             # prep env variable
             create_dir(builddir)
             env = clean_env()
@@ -261,8 +261,8 @@ def main(subset=False):
             subprocess.check_call(
                 ["cmake", "--build", builddir, "--target", "install", "--parallel"]
             )
-        else:
-            if soft == "dipha":
+        elif soft == "dipha" or soft == "oineus":
+            if(soft=="dipha"):
                 subprocess.run(
                     [
                         "git",
@@ -272,16 +272,16 @@ def main(subset=False):
                     cwd=soft_src,
                     check=True,
                 )
-            elif soft == "oineus":
-                subprocess.run(
-                    [
-                        "git",
-                        "apply",
-                        "../../patches/oineus_0001-New-example-file-for-simplicial-complexes.patch",
-                    ],
-                    cwd=soft_src,
-                    check=True,
-                )
+            #elif soft == "oineus":
+            #    subprocess.run(
+            #        [
+            #            "git",
+            #            "apply",
+            #            "../../patches/oineus_0001-New-example-file-for-simplicial-complexes.patch",
+            #        ],
+            #        cwd=soft_src,
+            #        check=True,
+            #    )
             create_dir(builddir)
             subprocess.check_call(
                 ["cmake", "-S", soft_src, "-B", builddir, "-DCMAKE_BUILD_TYPE=Release"]
