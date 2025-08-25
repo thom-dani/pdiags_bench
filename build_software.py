@@ -119,9 +119,15 @@ def main(subset=False):
         soft_src = f"backends_src/{soft}"
         start = time.time()
         builddir = f"build_dirs/{soft}"
-        if "CubicalRipser" in soft:
+        if soft == "CubicalRipser_2dim":
             # build CubicalRipser
             subprocess.run(["make"], cwd=soft_src, check=True)
+        elif soft == "CubicalRipser_2dim":
+            #build CubicalRipser 3D
+            create_dir(builddir)
+            subprocess.check_call(["cmake", ".."], cwd=builddir)
+            subprocess.check_call(["make"], cwd=builddir)
+
         elif soft == "perseus":
             # download Perseus
             download_perseus()

@@ -12,7 +12,7 @@
 	url = https://github.com/CubicalRipser/CubicalRipser_2dim
 [submodule "CubicalRipser_3dim"]
 	path = backends_src/CubicalRipser_3dim
-	url = https://github.com/CubicalRipser/CubicalRipser_3dim
+	url = https://github.com/shizuo-kaji/CubicalRipser_3dim
 [submodule "gudhi-devel"]
 	path = backends_src/gudhi
 	url = https://github.com/GUDHI/gudhi-devel
